@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-JSON</title>
+</head>
+<body>
+    <h1>JSON</h1>
+    <h2>Javascript Object Notation</h2>
+    <ul id="user-info"></ul>
+
+    <script>
+        const user = { 
+             id: 123,
+             name: 'Mizan',
+             lover: {
+                name: "Murshida",
+                food: "Rice"
+                },
+             friendsAge: [5, 7, 2.5, 2],
+             friendsName: ['Mahabub', 'Mizan', 'Rahman', 'Jasmin']            
+            }
+        const userJSON = JSON.stringify(user);
+        console.log(userJSON);
+
+        const userFromJSON = JSON.parse(userJSON);
+        console.log(userFromJSON);
+
+    // Receiving Data From JSON PLACEHOLDER BY FATCH METHOD:
+
+        fetch('https://jsonplaceholder.typicode.com/users')
+        .then(res => res.json())
+        .then(data => displayUser(data))
+            // এখানে উপরের data টাই ১০ টা users
+            // নিচে ১০ জন ইউজারকে পেয়ে গেছি :-
+        function displayUser(users){
+            console.log('Users info', users);
+            // ইউজার নেম পেতে 
+            // এখানে ম্যাপ করে ইউজারস এর মধ্যে যাবে এবং 
+            //প্রতিবার একটি একটি করে ইউজার এবং তার নাম হবে ইউজার 
+            //এবং ইউজার থেকে তার নেম দিবে 
+            const userNames = users.map(user =>user.username);
+            const ul = document.getElementById('user-info');
+            console.log('Users info', userNames);
+
+            // for loop এর মাধ্যমে লিস্ট বানানো :-
+            
+            for (let i = 0; i < userNames.length; i++) {
+                const username = userNames[i];
+                const li = document.createElement('li');
+                li.innerText = username;
+                ul.appendChild(li);
+                
+            }
+            
+
+
+        }
+
+
+    </script>
+
+    
+</body>
+</html>
